@@ -9,7 +9,7 @@ public interface ShippingRecordService  {
 
     @Description(value = "required id string")
     Mono<ShippingRecord> findById(ShippingRecord shippingRecord);
+    
+    Mono<ShippingRecord> save(ShippingRecord shippingRecord);
 
-    @Description(value = "required id string")
-    Mono<ByteArrayResource> boletaPdf(ShippingRecord shippingRecord);
 }

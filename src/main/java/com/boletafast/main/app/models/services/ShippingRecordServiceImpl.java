@@ -24,32 +24,9 @@ public class ShippingRecordServiceImpl implements  ShippingRecordService{
         return shippingRecordDao.findById(shippingRecord.getId());
     }
 
-    @Override
-    public Mono<ByteArrayResource> boletaPdf(ShippingRecord shippingRecord) {
-        try {
-            // Cargar el archivo .jasper
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\cleve\\JaspersoftWorkspace\\MyReports\\Blank_A4.jasper");
-//            JasperReport jasperReport = JasperCompileManager.compileReport("C:\\Users\\cleve\\JaspersoftWorkspace\\MyReports\\Blank_A4.jrxml");
+	@Override
+	public Mono<ShippingRecord> save(ShippingRecord shippingRecord) {
+		return this.shippingRecordDao.save(shippingRecord);
+	}
 
-            Map<String, Object> parametros = new HashMap<>();
-            parametros.put("parametro1", "holaa");
-            parametros.put("parametro2", "hola");
-
-            // Generar el informe
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parametros , new JREmptyDataSource());
-
-            // Exportar el informe a PDF
-            byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
-
-            // Crear el objeto ByteArrayResource para el archivo PDF
-            ByteArrayResource pdfResource = new ByteArrayResource(pdfBytes);
-
-            // Devolver el objeto ByteArrayResource
-            return Mono.just(pdfResource);
-
-        } catch (JRException e) {
-            e.printStackTrace();
-            return Mono.empty();
-        }
-    }
 }
