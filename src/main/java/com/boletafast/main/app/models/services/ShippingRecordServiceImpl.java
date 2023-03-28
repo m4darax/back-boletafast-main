@@ -1,21 +1,23 @@
 package com.boletafast.main.app.models.services;
 
 import com.boletafast.main.app.models.dao.ShippingRecordDao;
+import com.boletafast.main.app.models.documents.Employee;
 import com.boletafast.main.app.models.documents.ShippingRecord;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.util.JRLoader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
-import java.sql.Connection;
-import java.util.HashMap;
-import java.util.Map;
+import org.jfree.util.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class ShippingRecordServiceImpl implements  ShippingRecordService{
 
+	private static final Logger LOG = LoggerFactory.getLogger(ShippingRecordServiceImpl.class);
+	
     @Autowired
     private ShippingRecordDao shippingRecordDao;
 
@@ -27,6 +29,11 @@ public class ShippingRecordServiceImpl implements  ShippingRecordService{
 	@Override
 	public Mono<ShippingRecord> save(ShippingRecord shippingRecord) {
 		return this.shippingRecordDao.save(shippingRecord);
+	}
+
+	@Override
+	public Flux<ShippingRecord> findByDni(Employee employee) {
+		return this.shippingRecordDao.findByDniEmployee(employee.getDni());
 	}
 
 }

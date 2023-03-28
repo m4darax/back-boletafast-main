@@ -8,6 +8,7 @@ import com.boletafast.main.app.models.dao.EmployeeDao;
 import com.boletafast.main.app.models.dao.ShippingRecordDao;
 import com.boletafast.main.app.models.documents.Employee;
 import com.boletafast.main.app.models.documents.ShippingRecord;
+import com.boletafast.main.app.models.services.EmployeeService;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -29,6 +30,9 @@ import reactor.core.publisher.SignalType;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class BackBoletafastMainApplication implements CommandLineRunner {
@@ -49,6 +53,9 @@ public class BackBoletafastMainApplication implements CommandLineRunner {
     
     @Autowired
     private S3Service s3Service;
+    
+    @Autowired
+    private EmployeeService employeeService;
 
     public static void main(String[] args) {
         SpringApplication.run(BackBoletafastMainApplication.class, args);
@@ -60,7 +67,7 @@ public class BackBoletafastMainApplication implements CommandLineRunner {
     	//sendMailService.sendMail().subscribe();
     	
     	Employee employee = new Employee();
-    	employee.setDni(76687455);
+    	employee.setDni(76687455L);
     	employee.setName("Clever");
     	employee.setFirstName("Rivera");
     	employee.setLastName("Mancilla");
@@ -72,7 +79,7 @@ public class BackBoletafastMainApplication implements CommandLineRunner {
         shippingRecord.setAddressee("d");
         shippingRecord.setEmail("dd");
         shippingRecord.setSender("bbbb");
-        shippingRecord.setDniEmployee(76687455);
+        shippingRecord.setDniEmployee(76687455L);
         //shippingRecordDao.save(shippingRecord).subscribe();
 
         //Mono.just(shippingRecord).flatMap( s -> this.shippingRecordDao.save(s)).subscribe( p -> System.out.println(p.toString()));
@@ -92,6 +99,24 @@ public class BackBoletafastMainApplication implements CommandLineRunner {
         
         
        // this.s3Service.uploadFileS3().subscribe();
+        
+       // this.employeeService.findAll().subscribe( p -> LOG.info(p.toString()));
+        
+       /* Flux.just("Clever", "Jesusa", "Diego").flatMap( p -> {
+        	LOG.info("STRING");
+        	return Flux.just(1, 2, 4);
+        			})
+        .flatMap(p -> {
+        	return Mono.empty();
+        }).subscribe();
+        
+        Flux<Integer> numeros = Flux.just(1, 2, 3, 4, 5);
+        numeros.flatMap(n -> Flux.just(n * n))
+               .subscribe(System.out::println);
+        
+        
+*/
+
         
     }
 }

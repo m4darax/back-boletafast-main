@@ -22,10 +22,12 @@ public class ShippingRecord {
     private String sender;
     private String addressee;
     private String email;
+    private Integer anio;
+    private String Month;
     
     //@Indexed(unique = true)
     @Field(name = "dni_employee")
-    private Integer dniEmployee;
+    private Long dniEmployee;
     
     @Field(name = "path_file_boleta")
     private String pathFileBoleta;
@@ -33,4 +35,9 @@ public class ShippingRecord {
     @Field(name = "name_file_boleta")
     private String nameFileBoleta;
 
+    @Field(name = "path_file_full_boleta_s3_public")
+    private String  pathFileFullBoletaS3Public;
+    
+    @Field(name = "path_file_s3_not_name")
+    private String pathFileS3NotName;
 }

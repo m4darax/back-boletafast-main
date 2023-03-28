@@ -1,7 +1,5 @@
 package com.boletafast.main.app.mail;
 
-import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -13,8 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
+import com.boletafast.main.app.models.documents.ShippingRecord;
 import com.boletafast.main.app.templateshtml.TemplatesHtmlBoleta;
 
 import reactor.core.publisher.Mono;
@@ -27,10 +27,10 @@ public class SendMailServiceImpl implements SendMailService {
 	@Autowired
 	private Session mailSession;
 	
-	public Mono<Void> sendMail (String mail, ByteArrayResource byteArrayResource) {
-		
-		String to = "clever.rivera07@gmail.com"; // Dirección de correo electrónico del destinatario
-	    String from = mail; // Dirección de correo electrónico del remitente
+	public Mono<Void> sendMail (ShippingRecord shippingRecord, ByteArrayResource byteArrayResource) {
+		LOG.info("MAIL: " + shippingRecord.getAddressee());
+		String to = shippingRecord.getAddressee(); // Dirección de correo electrónico del destinatario
+	    String from = shippingRecord.getAddressee(); // Dirección de correo electrónico del remitente
 	 
 	    try {
 	      // Creación de mensaje
@@ -50,8 +50,12 @@ public class SendMailServiceImpl implements SendMailService {
 	              Transport.send(message);
 	              LOG.info("CORREO ENVIADO");
 	          } catch (MessagingException e) {
+	        	  LOG.error(e.getMessage());
 	              throw new RuntimeException(e);
-	          }
+	          } catch (MailException e2) {
+				LOG.error(e2.getMessage());
+				throw new RuntimeException(e2);
+			}
 	      });
 
 	    } catch (MessagingException e) {

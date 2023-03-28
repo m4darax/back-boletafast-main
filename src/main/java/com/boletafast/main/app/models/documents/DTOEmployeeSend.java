@@ -20,7 +20,7 @@ public class DTOEmployeeSend {
 	private String id;
 	
 	@Field(name ="dni_employee")
-	private Integer dniEmployee;
+	private Long dniEmployee;
 	
 	@Field(name = "addressee")
 	private String addressee;

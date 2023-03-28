@@ -13,6 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 @Document("employee")
 public class Employee {
 
@@ -21,7 +22,7 @@ public class Employee {
 	private String id;
 	
 	@Indexed(unique = true)
-	private Integer dni;
+	private Long dni;
 	
 	private String name;
 	
@@ -39,5 +40,8 @@ public class Employee {
 	
 	@Field(name = "email")
 	private String email;
+	
+	@Field(name = "path_file_full_boleta_s3_public")
+    private String  pathFileFullBoletaS3Public;
 	
 }

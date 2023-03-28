@@ -8,5 +8,7 @@ import reactor.core.publisher.Mono;
 
 public interface EmployeeDao extends ReactiveMongoRepository<Employee, String>{
 	
-	Mono<Employee> findByDni(Integer integer);
+	Mono<Employee> findByDni(Long dni);
+	
+	
 }

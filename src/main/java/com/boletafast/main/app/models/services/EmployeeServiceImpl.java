@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.boletafast.main.app.models.dao.EmployeeDao;
+import com.boletafast.main.app.models.dao.EmployeeNoReactiveDao;
 import com.boletafast.main.app.models.documents.DTOEmployeeSend;
 import com.boletafast.main.app.models.documents.Employee;
 
@@ -37,5 +38,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		return this.employeeDao.findByDni(dtoEmployeeSend.getDniEmployee());
 	}
+
+	@Override
+	public Mono<Employee> findByDni(Employee employee) {
+		return this.employeeDao.findByDni(employee.getDni());
+	}
+
 
 }

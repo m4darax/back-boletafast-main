@@ -12,8 +12,11 @@ public interface EmployeeService {
 	
 	Mono<Employee> findById(Employee employee);
 	
+	Mono<Employee> findByDni(Employee employee);
+	
 	Mono<Employee> save(Employee employee);
 	
 	Mono<Employee> findByDni( DTOEmployeeSend dtoEmployeeSend);
+	
 	
 }
