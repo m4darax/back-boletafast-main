@@ -220,6 +220,7 @@ public class GenerationReportServiceImpl implements GenerationReportService {
 				shippingRecord.setPathFileBoleta(pathFileS3);//name file.pdf
 				shippingRecord.setNameFileBoleta(nameFile);
 				shippingRecord.setPathFileS3NotName(pathFullS3NotName);
+				shippingRecord.setIdSendRecordShippingEmployee(idNameInitialFolder);
 			}
 			LOG.info("enviando correo");
 		 return this.boletaPdf(e, jsonEmployeeExcel).flatMap( p -> {

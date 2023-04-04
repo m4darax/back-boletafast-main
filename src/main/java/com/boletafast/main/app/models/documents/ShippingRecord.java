@@ -40,4 +40,7 @@ public class ShippingRecord {
     
     @Field(name = "path_file_s3_not_name")
     private String pathFileS3NotName;
+
+    @Field(name = "id_send_record_shipping_employee")
+    private String idSendRecordShippingEmployee;
 }
